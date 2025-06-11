@@ -1,0 +1,241 @@
+/ welcome to our X O game:)
+/ The grid is set up as such:
+/ 1 2 3
+/ 4 5 6
+/ 7 8 9 
+
+
+PlayX,  JnS UserInput        
+		    JnS CheckContains 
+		    JnS Print 
+        JnS CheckWinX 
+        Load XPlayCount
+        Add One
+        Store XPlayCount
+        Subt Five
+        Skipcond 400
+        Jump PlayX
+		    Halt
+
+UserInput,  HEX 0
+			  Input
+            Store UiX
+            Subt One
+            Skipcond 800
+            Jump X1
+            Subt One
+            Skipcond 800
+            Jump X2
+            Subt One
+            Skipcond 800
+            Jump X3
+            Subt One
+            Skipcond 800
+            Jump X4
+            Subt One
+            Skipcond 800
+            Jump X5
+            Subt One
+            Skipcond 800
+            Jump X6
+            Subt One
+            Skipcond 800
+            Jump X7
+            Subt One
+            Skipcond 800
+            Jump X8
+            Subt One
+            Skipcond 800
+            Jump X9
+			
+X1, Load 	X
+	Store 	Pos1
+	JumpI UserInput
+X2, Load 	X
+	Store 	Pos2
+	JumpI UserInput
+X3, Load 	X
+	Store 	Pos3
+	JumpI UserInput
+X4, Load 	X
+	Store 	Pos4
+	JumpI UserInput
+X5, Load 	X
+	Store 	Pos5
+	JumpI UserInput
+X6, Load 	X
+	Store 	Pos6
+	JumpI UserInput
+X7, Load 	X
+	Store 	Pos7
+	JumpI UserInput
+X8, Load 	X
+	Store 	Pos8
+	JumpI UserInput
+X9, Load 	X
+	Store 	Pos9
+	JumpI UserInput
+   
+Print, 		  HEX 0
+	   		    Load Arr2
+       		  Store Arr
+Printout,	LoadI Arr
+			      Skipcond 800
+            JumpI Print
+			      Output
+            Load Arr
+            Add One
+            Store Arr
+            Jump Printout
+
+CheckWinX,	HEX 0
+			      Load Pos1
+			      Add  Pos2
+            Add  Pos3
+            Subt DecX
+            Skipcond 400
+            Jump Cont1
+            Jump XWin
+Cont1,		Load Pos4
+			      Add  Pos5
+            Add  Pos6
+            Subt DecX
+            Skipcond 400
+            Jump Cont2
+            Jump XWin
+Cont2,		Load Pos7
+			      Add  Pos8
+            Add  Pos9
+            Subt DecX
+            Skipcond 400
+            Jump Cont3
+            Jump XWin
+Cont3,		Load Pos1
+			      Add  Pos4
+            Add  Pos7
+            Subt DecX
+            Skipcond 400
+            Jump Cont4
+            Jump XWin
+Cont4,		Load Pos2
+			      Add  Pos5
+            Add  Pos8
+            Subt DecX
+            Skipcond 400
+            Jump Cont5
+            Jump XWin
+Cont5,		Load Pos3
+			      Add  Pos6
+            Add  Pos9
+            Subt DecX
+            Skipcond 400
+            Jump Cont6
+            Jump XWin
+Cont6,		Load Pos3
+			      Add  Pos5
+            Add  Pos7
+            Subt DecX
+            Skipcond 400
+            Jump Cont7
+            Jump XWin
+Cont7,		Load Pos1
+			      Add  Pos5
+            Add  Pos9
+            Subt DecX
+            Skipcond 400
+            Jump CheckWinGuess
+            Jump XWin
+CheckWinGuess, JumpI CheckWinX
+
+CheckContains,  HEX 0
+CheckContains1, Load UiX
+				        Subt Box
+				        Skipcond 400
+                JumpI CheckContains
+                JnS AlreadyPlaced
+            	
+        
+            
+                 
+Arr2, 	ADR Pos1
+Arr, 	  ADR Pos1
+Pos1, 	HEX 25FB
+Pos2, 	HEX 25FB
+Pos3, 	HEX 25FB
+		    HEX 0A
+Pos4, 	HEX 25FB
+Pos5, 	HEX 25FB
+Pos6, 	HEX 25FB
+		    HEX 0A
+Pos7, 	HEX 25FB
+Pos8, 	HEX 25FB
+Pos9, 	HEX 25FB
+	      HEX 0A
+        HEX 0A
+Zero, 	DEC 0
+
+DecX,	      HEX 753F
+UiX,	      HEX 0
+Box,	      HEX 25FB
+X,		      HEX 2715
+O,		      HEX 25EF
+One, 	      DEC 1
+Two,	      DEC 2
+Three,	    DEC 3
+Four,	      DEC 4
+Five,     	DEC 5
+Six,	      DEC 6
+Nine,       DEC 9
+XPlayCount, DEC 0
+
+
+
+/Arrays
+XWin,   LoadI Xwinner
+		    Skipcond 800
+        Halt
+        Output
+        Load Xwinner
+        Add One
+        Store Xwinner
+        Jump XWin
+        
+AlreadyPlaced,      HEX 0
+AlreadyPlacedLoop,  LoadI AlreadyPlace
+					          Skipcond 800
+                    JumpI AlreadyPlaced
+                    Output
+                    Load AlreadyPlace
+                    Add One
+                    Store AlreadyPlace
+                    Jump AlreadyPlacedLoop
+
+Xwinner, ADR ArrWin
+ArrWin, HEX 58 
+		    HEX 20 
+        HEX 57 
+        HEX 69 
+        HEX 6E 
+        HEX 73 
+        HEX 21
+        DEC 0
+        
+AlreadyPlace, ADR ArrPlaced
+ArrPlaced, 	HEX 49 
+			      HEX 6E 
+            HEX 76 
+            HEX 61 
+            HEX 6C 
+            HEX 69 
+            HEX 64 
+            HEX 20 
+            HEX 50 
+            HEX 6F 
+            HEX 73 
+            HEX 69 
+            HEX 74 
+            HEX 69 
+            HEX 6F 
+            HEX 6E
+            HEX 0A
+            DEC 0
